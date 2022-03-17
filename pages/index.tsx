@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import React from 'react'
 import { toSvg } from 'html-to-image'
 
@@ -70,7 +71,7 @@ const CardPage: NextPage = () => {
 
         { imageData !== '' ? (
           /* Right click to download image 点击下载图片 */
-          <img src={imageData} />
+          <Image src={imageData} alt="generated user profile card" />
         ) : <></> }
       </div>
     </>
