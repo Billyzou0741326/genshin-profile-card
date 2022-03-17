@@ -71,7 +71,9 @@ const CardPage: NextPage = () => {
 
         { imageData !== '' ? (
           /* Right click to download image 点击下载图片 */
-          <Image src={imageData} alt="generated user profile card" />
+          <div className="relative w-full max-w-xl h-64">
+            <Image src={imageData} alt="generated user profile card" layout="fill" />
+          </div>
         ) : <></> }
       </div>
     </>
