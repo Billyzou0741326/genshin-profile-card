@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Set permissions
-      run: chmod -R a+rwX /root/.cache/Cypress
+      run: chmod -R a+rwX /root/.cache
 
     - uses: actions/checkout@v2
 
