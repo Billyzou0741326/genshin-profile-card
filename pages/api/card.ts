@@ -16,16 +16,25 @@ function getSampleUserProfile(): UserProfile {
   }
 }
 
+const getPage = (() => {
+  let browser: puppeteer.Browser | null = null
+  return async () => {
+    if (browser === null) {
+      browser = await puppeteer.launch()
+    }
+    return await browser.newPage()
+  }
+})()
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  //if (req.method !== 'GET') {
-  //  return res.status(405).json({ error: 'method not supported' })
-  //}
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'method not supported' })
+  }
   const addr: any = req.socket.address()
   const port = typeof addr.port === 'number' ? addr.port : 3000
-  const browser = await puppeteer.launch()
+  const page = await getPage()
   try {
     //const data = JSON.parse(req.body)
-    const page = await browser.newPage()
     await page.goto(`http://127.0.0.1:${port}`, { waitUntil: ['load', 'domcontentloaded'] })
     const genBtn = await page.waitForSelector('#svg-generate-button')
     await genBtn?.click()
@@ -33,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //await page.screenshot({ path: 'tmp/card.png' })
     const svgDataHandler = await svgAnchor?.getProperty('href')
     const svgData = await svgDataHandler?.jsonValue()
-    await page.goto(`${svgData}`, { waitUntil: ['load', 'domcontentloaded']})
+    await page.goto(`${svgData}`, { waitUntil: ['load']})
     const content = await page.content()
     return res.status(200)
       .setHeader('content-type', 'image/svg+xml;charset=utf-8')
@@ -44,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     return res.status(500).json({ error: `${error.message}` })
   } finally {
-    await browser.close()
+    await page.close()
   }
 }
 
