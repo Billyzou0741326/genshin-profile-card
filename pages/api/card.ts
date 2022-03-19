@@ -16,15 +16,19 @@ function getSampleUserProfile(): UserProfile {
   }
 }
 
-const getPage = (() => {
-  let browser: puppeteer.Browser | null = null
-  return async () => {
-    if (browser === null) {
-      browser = await puppeteer.launch()
-    }
-    return await browser.newPage()
+const getPuppeteerLaunchOptions = () => {
+  return {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--no-gpu',
+    ],
   }
-})()
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -32,9 +36,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   const addr: any = req.socket.address()
   const port = typeof addr.port === 'number' ? addr.port : 3000
-  const page = await getPage()
+  const browser = await puppeteer.launch(getPuppeteerLaunchOptions())
   try {
     //const data = JSON.parse(req.body)
+    const page = await browser.newPage()
     await page.goto(`http://127.0.0.1:${port}`, { waitUntil: ['load', 'domcontentloaded'] })
     const genBtn = await page.waitForSelector('#svg-generate-button')
     await genBtn?.click()
@@ -53,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     return res.status(500).json({ error: `${error.message}` })
   } finally {
-    await page.close()
+    await browser.close()
   }
 }
 
