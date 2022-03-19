@@ -1,5 +1,7 @@
 # Genshin Profile Card
 
+![Generated user profile card full 4k](docs/images/genshin-card-7680_4432.png)
+
 ![Generated user profile card](docs/images/genshin-card.svg)
 
 

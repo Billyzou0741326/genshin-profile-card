@@ -53,51 +53,40 @@ const CardPage: NextPage = () => {
       {/* Background */}
       <div className="absolute inset-0 min-h-screen bg-repeat" style={backgroundStyle} />
 
-      <div className="relative p-8 w-full h-full flex flex-col gap-4 items-center">
+      <div className="relative p-8 w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-4">
 
-        {/* Top */}
-        <div className="flex flex-row gap-x-6 w-full">
+        {/* Left */}
+        <div className="flex flex-col gap-6 w-full">
           {/* User Profile 用户信息 */}
-          <div className="flex flex-col gap-4 w-full w-64 px-auto justify-center">
-            {/* User Avatar */}
-            <div className="rounded-full w-64 h-64 bg-white shadow-md"></div>
-            {/* Username */}
-            <div className="flex flex-col gap-1 items-start w-full">
-              <span className="text-3xl">洛水居士</span>
-              <div className="border-b"></div>
-              <span className="text-md font-thin">UID: 164635231</span>
-              <span className="text-xs">Lv. 58</span>
+          <div className="flex flex-col w-full gap-2">
+            <div className="flex flex-row">
+              <div className="border-l-4 border-blue-500 h-full" />
+              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+                <span className="text-3xl font-thin text-blue-400">User Profile</span>
+              </div>
+            </div>
+            {/* Content */}
+            <div className="h-40 flex flex-row gap-4 items-center p-6 w-full rounded-xl shadow-md bg-blue-200 border border-blue-600 opacity-70">
+              {/* User avatar */}
+              <div className="rounded-full w-28 h-28 bg-white shadow-md"></div>
+              {/* User info */}
+              <span className="text-2xl">{ userProfile.username }</span>
             </div>
           </div>
 
           {/* Genshin Stats 玩家信息卡 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-blue-500 h-full" />
+              <div className="border-l-4 border-green-500 h-full" />
               <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
-                <span className="text-3xl font-thin text-blue-400">Genshin Stats</span>
+                <span className="text-3xl font-thin text-green-400">Genshin Stats</span>
               </div>
             </div>
-            <div className="h-full rounded-md shadow-md bg-blue-200 border border-blue-600 opacity-70"></div>
-          </div>
-
-          {/* Character preview 角色预览 */}
-          <div className="flex flex-col w-full gap-2">
-            <div className="flex flex-row">
-              <div className="border-l-4 border-purple-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
-                <span className="text-3xl font-thin text-purple-400">Characters</span>
-              </div>
+            {/* Content */}
+            <div className="h-56 flex flex-row items-center p-2 w-full rounded-xl shadow-md bg-green-200 border border-green-600 opacity-70">
             </div>
-            <div className="h-full rounded-md shadow-md bg-purple-200 border border-purple-600 opacity-70"></div>
           </div>
-        </div>
 
-        {/* Divider */}
-        <div className="border-b w-full border-gray-400 my-4"></div>
-
-        {/* Bottom */}
-        <div className="flex flex-row w-full gap-x-6">
           {/* Exploration progress 探索进度 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
@@ -106,18 +95,50 @@ const CardPage: NextPage = () => {
                 <span className="text-3xl font-thin text-orange-400">Exploration</span>
               </div>
             </div>
-            <div className="h-72 rounded-md shadow-md bg-orange-200 border border-orange-600 opacity-70"></div>
+            {/* Content */}
+            <div className="h-48 grid grid-cols-4 gap-4 rounded-xl opacity-70">
+              { Array(8).fill(0).map((i) => (
+                <div key={`${i}`} className="w-full h-full bg-orange-200 border border-orange-600 rounded-md shadow-lg">
+                </div>
+              )) }
+            </div>
           </div>
 
           {/* Teapot info 茶壶 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-green-500 h-full" />
+              <div className="border-l-4 border-pink-500 h-full" />
               <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
-                <span className="text-3xl font-thin text-green-400">Teapot</span>
+                <span className="text-3xl font-thin text-pink-400">Teapot</span>
               </div>
             </div>
-            <div className="h-72 rounded-md shadow-md bg-green-200 border border-green-600 opacity-70"></div>
+            {/* Content */}
+            <div className="h-24 flex flex-row gap-4 items-center w-full opacity-70">
+              { Array(1).fill(0).map((i) => (
+                <div key={`${i}`} className="w-full h-full bg-pink-200 border border-pink-600 rounded-md shadow-lg">
+                </div>
+              )) }
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        {/*<div className="border-r h-96 border-gray-400 mx-4"></div>*/}
+
+        {/* Right */}
+        <div className="flex flex-row w-full gap-6">
+          {/* Character preview 角色预览 */}
+          <div className="flex flex-col w-full gap-3">
+            <div className="flex flex-row">
+              <div className="border-l-4 border-purple-500 h-full" />
+              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+                <span className="text-3xl font-thin text-purple-400">Characters</span>
+              </div>
+            </div>
+            { Array(8).fill(0).map((i) => (
+              <div key={`${i}`} className="h-28 rounded-xl shadow-md bg-purple-200 border border-purple-600 opacity-70">
+              </div>
+            )) }
           </div>
         </div>
       </div>

@@ -42,17 +42,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     //const data = JSON.parse(req.body)
     const page = await browser.newPage()
-    await page.goto(`http://127.0.0.1:${port}/card`, { waitUntil: ['load', 'domcontentloaded'] })
-    const genBtn = await page.waitForSelector('#svg-generate-button')
-    await genBtn?.click()
-    const svgAnchor = await page.waitForSelector('#genshin-card-svg')
-    //await page.screenshot({ path: 'tmp/card.png' })
-    const svgDataHandler = await svgAnchor?.getProperty('href')
-    const svgData = await svgDataHandler?.jsonValue()
-    await page.goto(`${svgData}`, { waitUntil: ['load']})
-    const content = await page.content()
+    await page.setViewport({
+      width: 1920,
+      height: 1080,
+      deviceScaleFactor: 2,
+    })
+    await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: ['load', 'domcontentloaded'] })
+    const content = await page.screenshot({ path: 'tmp/card.png', fullPage: true })
+    //const genBtn = await page.waitForSelector('#svg-generate-button')
+    //await genBtn?.click()
+    //const svgAnchor = await page.waitForSelector('#genshin-card-svg')
+    //const svgDataHandler = await svgAnchor?.getProperty('href')
+    //const svgData = await svgDataHandler?.jsonValue()
+    //await page.goto(`${svgData}`, { waitUntil: ['load']})
+    //const content = await page.content()
     return res.status(200)
-      .setHeader('content-type', 'image/svg+xml;charset=utf-8')
+      //.setHeader('content-type', 'image/svg+xml;charset=utf-8')
+      .setHeader('content-type', 'image/png')
       .send(content)
   } catch (error: any) {
     if (/SyntaxError/.test(error.name)) {
