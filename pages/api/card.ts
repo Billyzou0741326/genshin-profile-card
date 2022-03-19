@@ -34,13 +34,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'method not supported' })
   }
+
+
   const addr: any = req.socket.address()
   const port = typeof addr.port === 'number' ? addr.port : 3000
   const browser = await puppeteer.launch(getPuppeteerLaunchOptions())
   try {
     //const data = JSON.parse(req.body)
     const page = await browser.newPage()
-    await page.goto(`http://127.0.0.1:${port}`, { waitUntil: ['load', 'domcontentloaded'] })
+    await page.goto(`http://127.0.0.1:${port}/card`, { waitUntil: ['load', 'domcontentloaded'] })
     const genBtn = await page.waitForSelector('#svg-generate-button')
     await genBtn?.click()
     const svgAnchor = await page.waitForSelector('#genshin-card-svg')
