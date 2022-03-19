@@ -19,34 +19,34 @@ const Card = React.forwardRef((props: CardProps, ref: React.ForwardedRef<any>): 
         <div className="flex flex-col gap-1">
           <div className="flex flex-row gap-2">
             {/* Username (i.e 洛水居士) */}
-            <span className="text-xl font-medium whitespace-nowrap">{ userProfile.username }</span>
+            <span className="text-xl font-medium whitespace-nowrap block">{ userProfile.username }</span>
             {/* Level (i.e lv58) */}
-            <span className="text-md">{ `Lv.${userProfile.level}` }</span>
+            <span className="text-md block">{ `Lv.${userProfile.level}` }</span>
           </div>
           {/* Uid (i.e 164635231) */}
           <span className="text-md">{ `UID: ${userProfile.uid}` }</span>
         </div>
         {/* Game stats */}
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row w-full items-center gap-4">
           {/* Days Active 活跃天数 */}
           <div className="flex flex-col gap-1 items-center">
             <span className="text-2xl whitespace-nowrap">{ `${userProfile.daysActive}` }</span>
-            <span className="text-xs">活跃天数</span>
+            <span className="text-xs whitespace-nowrap">活跃天数</span>
           </div>
           {/* Characters 角色数量 */}
           <div className="flex flex-col gap-1 items-center">
             <span className="text-2xl whitespace-nowrap">{ `${userProfile.characterCount}` }</span>
-            <span className="text-xs">角色数量</span>
+            <span className="text-xs whitespace-nowrap">角色数量</span>
           </div>
           {/* Achievements 成就达成 */}
           <div className="flex flex-col gap-1 items-center">
             <span className="text-2xl whitespace-nowrap">{ `${userProfile.achievements}` }</span>
-            <span className="text-xs">成就达成</span>
+            <span className="text-xs whitespace-nowrap">成就达成</span>
           </div>
           {/* Spiral Anyss 深境螺旋 */}
           <div className="flex flex-col gap-1 items-center">
             <span className="text-2xl whitespace-nowrap">{ `${userProfile.spiralAbyss}` }</span>
-            <span className="text-xs">深境螺旋</span>
+            <span className="text-xs whitespace-nowrap">深境螺旋</span>
           </div>
         </div>
       </div>

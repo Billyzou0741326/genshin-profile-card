@@ -3,6 +3,19 @@
 ![Generated user profile card](docs/images/genshin-card.svg)
 
 
+To support the following features, a few dependencies need to be installed:
+
+- Puppeteer (headless browser)
+- Chinese characters in generated card
+
+```shell
+# puppeteer
+sudo apt-get install chromium-browser
+# chinese characters
+sudo apt-get install fonts-wqy-zenhei
+```
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
