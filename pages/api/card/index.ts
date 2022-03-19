@@ -1,40 +1,27 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import puppeteer from 'puppeteer'
+import * as yup from 'yup'
 
-import { UserProfile } from '../../lib/models'
-import Card from '../../components/Card'
+import * as models from '../../../lib/models'
+import Card from '../../../components/Card'
 
-function getSampleUserProfile(): UserProfile {
-  return {
-    username: '洛水居士',
-    level: 58,
-    uid: 164635231,
-    daysActive: 450,
-    characterCount: 38,
-    achievements: 547,
-    spiralAbyss: '12-3',
-  }
-}
 
-const getPuppeteerLaunchOptions = () => {
-  return {
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--no-gpu',
-    ],
-  }
-}
+const cardSchema = yup.object({
+  stats: models.gameStatsSchema,
+  explorations: yup.array(models.explorationSchema),
+  teapot: models.teapotSchema,
+})
+
+interface CardProps extends yup.InferType<typeof cardSchema> {}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') {
+  if (!['GET', 'POST'].includes(req.method || '')) {
     return res.status(405).json({ error: 'method not supported' })
   }
 
+  //const data = cardSchema.cast(req.body)
+  //const data = cardSchema.cast(req.query)
+  //console.log(data)
 
   const addr: any = req.socket.address()
   const port = typeof addr.port === 'number' ? addr.port : 3000
@@ -67,6 +54,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: `${error.message}` })
   } finally {
     await browser.close()
+  }
+}
+
+const getPuppeteerLaunchOptions = () => {
+  return {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--no-gpu',
+    ],
   }
 }
 
