@@ -98,41 +98,42 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
               </div>
             </div>
             {/* Content */}
-            <div className="h-56 grid grid-cols-5 text-center items-center p-2 w-full rounded-xl shadow-md bg-green-50 border border-green-400 opacity-80">
+            <div className={`h-56 grid grid-cols-5 text-center tracking-wider items-center
+              p-2 w-full rounded-xl shadow-md bg-green-50 border border-green-400 opacity-80`}>
               {/* Common chests 普通宝箱 */}
-              <div className="basis-1/5 flex-none flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Common chests</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.common_chests }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Common chests</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.common_chests }</span>
               </div>
               {/* Exquisite chests 精致宝箱 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Exquisite chests</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.exquisite_chests }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Exquisite chests</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.exquisite_chests }</span>
               </div>
               {/* Precious chests 珍贵宝箱 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Precious chests</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.precious_chests }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Precious chests</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.precious_chests }</span>
               </div>
               {/* Luxurious chests 华丽宝箱 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Luxurious chests</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.luxurious_chests }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Luxurious chests</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.luxurious_chests }</span>
               </div>
               {/* Remarkable chests 奇馈宝箱 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Remarkable chests</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.remarkable_chests }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Remarkable chests</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.remarkable_chests }</span>
               </div>
               {/* Unlocked waypoints 锚点解锁 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Unlocked waypoints</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.unlocked_waypoints }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Unlocked waypoints</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.unlocked_waypoints }</span>
               </div>
               {/* Unlocked domains 秘境解锁 */}
-              <div className="basis-1/5 flex flex-col px-8 py-4 gap-2">
-                <span className="text-xs text-green-300 whitespace-nowrap">Unlocked domains</span>
-                <span className="text-4xl text-green-500">{ userInfo.stats.unlocked_domains }</span>
+              <div className="basis-1/5 flex flex-col px-2 py-4 gap-2">
+                <span className="text-xs font-black text-green-500 whitespace-nowrap">Unlocked domains</span>
+                <span className="text-4xl font-thin text-green-600">{ userInfo.stats.unlocked_domains }</span>
               </div>
             </div>
           </div>
