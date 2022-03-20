@@ -2,9 +2,9 @@ name: Cypress CI
 
 on:
   push:
-    branches: [ '**' ]
+    branches: ["**"]
   pull_request:
-    branches: [ 'main' ]
+    branches: ["main"]
 
 jobs:
   cypress-tests:
@@ -15,23 +15,23 @@ jobs:
       CYPRESS_CACHE_FOLDER: /root/.cache/Cypress
 
     steps:
-    - name: Set permissions
-      run: chmod -R a+rwX /root/.cache
+      - name: Set permissions
+        run: chmod -R a+rwX /root/.cache
 
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Cypress component tests
-      uses: cypress-io/github-action@v2
-      with:
-        command: npx cypress run-ct --config video=false,screenshotOnRunFailure=false
+      - name: Cypress component tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npx cypress run-ct --config video=false,screenshotOnRunFailure=false
 
-    - name: Build nextjs
-      run: npm run build
+      - name: Build nextjs
+        run: npm run build
 
-    - name: Cypress integration tests
-      uses: cypress-io/github-action@v2
-      with:
-        # Already installed in the component tests step
-        install: false
-        config: video=false,screenshotOnRunFailure=false
-        start: npm start
+      - name: Cypress integration tests
+        uses: cypress-io/github-action@v2
+        with:
+          # Already installed in the component tests step
+          install: false
+          config: video=false,screenshotOnRunFailure=false
+          start: npm start

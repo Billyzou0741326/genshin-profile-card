@@ -1,28 +1,26 @@
-import { Formik } from 'formik'
+import { Formik } from "formik";
 
 const UidForm = (): JSX.Element => {
   return (
     <>
       {/* Uid */}
       <Formik
-        initialValues={{ uid: '' }}
+        initialValues={{ uid: "" }}
         validate={(values) => {
-          const errors: any = {}
+          const errors: any = {};
           if (!values.uid) {
-            errors.uid = '* Required'
-          } else if (
-            !/^[0-9]+$/.test(values.uid)
-          ) {
-            errors.uid = '* Invalid uid'
+            errors.uid = "* Required";
+          } else if (!/^[0-9]+$/.test(values.uid)) {
+            errors.uid = "* Invalid uid";
           }
-          return errors
+          return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(`Form submitted - uid: ${values.uid}`)
-          setSubmitting(false)
+          console.log(`Form submitted - uid: ${values.uid}`);
+          setSubmitting(false);
         }}
       >
-        { ({
+        {({
           values,
           errors,
           touched,
@@ -60,7 +58,7 @@ const UidForm = (): JSX.Element => {
         )}
       </Formik>
     </>
-  )
-}
+  );
+};
 
-export default UidForm
+export default UidForm;

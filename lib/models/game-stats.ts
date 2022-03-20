@@ -1,11 +1,10 @@
-import * as yup from 'yup'
-
+import * as yup from "yup";
 
 export const gameStatsSchema = yup.object({
   days_active: yup.number().moreThan(-1).default(0),
   characters: yup.number().moreThan(-1).default(0),
   achievements: yup.number().default(0),
-  spiral_abyss: yup.string().default('-'),
+  spiral_abyss: yup.string().default("-"),
 
   anemoculi: yup.number().moreThan(-1).default(0),
   geoculi: yup.number().moreThan(-1).default(0),
@@ -19,6 +18,6 @@ export const gameStatsSchema = yup.object({
 
   unlocked_waypoints: yup.number().moreThan(-1).default(0),
   unlocked_domains: yup.number().moreThan(-1).default(0),
-})
+});
 
 export interface GameStats extends yup.InferType<typeof gameStatsSchema> {}
