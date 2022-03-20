@@ -1,10 +1,12 @@
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import React from 'react'
 import { toSvg } from 'html-to-image'
 import getRawBody from 'raw-body'
 import * as yup from 'yup'
 
+import * as models from '../lib/models'
 import { cardSchema } from '../lib/validators/card'
 
 
@@ -50,12 +52,11 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
       <div className="relative p-8 w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-4">
 
         {/* Left */}
-        <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col w-full gap-6">
           {/* User Profile 用户信息 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-blue-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+              <div className="border-l-4 border-blue-500 px-4 py-2 bg-white opacity-90 rounded-r-full">
                 <span className="text-3xl font-thin text-blue-400">User Profile</span>
               </div>
             </div>
@@ -92,8 +93,7 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
           {/* Genshin Stats 玩家信息卡 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-green-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+              <div className="border-l-4 border-green-500 px-4 py-2 bg-white opacity-90 rounded-r-full">
                 <span className="text-3xl font-thin text-green-400">Genshin Stats</span>
               </div>
             </div>
@@ -141,15 +141,40 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
           {/* Exploration progress 探索进度 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-orange-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+              <div className="border-l-4 border-orange-500 px-4 py-2 bg-white opacity-90 rounded-r-full">
                 <span className="text-3xl font-thin text-orange-400">Exploration</span>
               </div>
             </div>
-            {/* Content */}
-            <div className="h-48 grid grid-cols-4 gap-4 rounded-xl opacity-70">
-              { Array(8).fill(0).map((_, i) => (
-                <div key={`${i}`} className="w-full h-full bg-orange-50 border border-orange-400 rounded-md shadow-lg">
+            {/* Content (h-48) */}
+            <div className={`grid grid-cols-4 items-center bg-orange-50 border border-orange-400
+              rounded-xl shadow-md opacity-70`}>
+              { takeMultipleOf(sortExplorationById(userInfo.explorations), 4).map((exploration, i) => (
+                <div key={exploration.id} className="flex flex-row w-full h-full p-4 ">
+                  {/* Left - Region info */}
+                  <div className="grow flex flex-col tracking-wide">
+                    {/* Region name */}
+                    <div className="">
+                      <span className="text-lg font-black text-orange-500 whitespace-nowrap">{ exploration.name }</span>
+                    </div>
+                    {/* Region level */}
+                    <div>
+                      <span className="text-md text-orange-400">{ `Lv. ${exploration.level}` }</span>
+                    </div>
+                    {/* Percent explored */}
+                    <div className="overflow-hidden w-full bg-orange-200 rounded">
+                      <div
+                        className="whitespace-nowrap bg-orange-300 text-xs font-medium text-orange-700 px-2 py-0.5"
+                        style={{ width: `${exploration.percentage}%` }}
+                      >
+                        { `${exploration.percentage}%` }
+                      </div>
+                      {/*<span className="text-md text-orange-400">{ `${exploration.percentage}%` }</span>*/}
+                    </div>
+                  </div>
+                  {/* Region icon */}
+                  <div className="relative w-12 h-12 self-center">
+                    <Image src={exploration.icon} alt="region icon" layout="fill" className="w-full h-full invert" />
+                  </div>
                 </div>
               )) }
             </div>
@@ -158,13 +183,12 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
           {/* Teapot info 茶壶 */}
           <div className="flex flex-col w-full gap-2">
             <div className="flex flex-row">
-              <div className="border-l-4 border-pink-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+              <div className="border-l-4 border-pink-500 px-4 py-2 bg-white opacity-90 rounded-r-full">
                 <span className="text-3xl font-thin text-pink-400">Teapot</span>
               </div>
             </div>
             {/* Content */}
-            <div className="h-24 flex flex-row gap-4 items-center w-full opacity-70">
+            <div className={`h-24 flex flex-row gap-4 items-center w-full rounded-xl shadow-md opacity-70`}>
               { Array(1).fill(0).map((_, i) => (
                 <div key={`${i}`} className="w-full h-full bg-pink-50 border border-pink-400 rounded-md shadow-lg">
                 </div>
@@ -181,8 +205,7 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
           {/* Character preview 角色预览 */}
           <div className="flex flex-col w-full gap-3">
             <div className="flex flex-row">
-              <div className="border-l-4 border-purple-500 h-full" />
-              <div className="px-4 py-2 bg-white opacity-90 rounded-r-full">
+              <div className="border-l-4 border-purple-500 px-4 py-2 bg-white opacity-90 rounded-r-full">
                 <span className="text-3xl font-thin text-purple-400">Characters</span>
               </div>
             </div>
@@ -199,7 +222,6 @@ const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerS
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const req = context.req
-  console.log(req.method)
   if (req.method === 'POST') {
     try {
       if (/^application\/json/.test(req.headers['content-type'] || '')) {
@@ -217,12 +239,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       console.log(error)
     }
   }
-  const data = JSON.parse(JSON.stringify(cardSchema.getDefault()))
+  //import cardSample from '../lib/data/cardSample'
+  const cardSample = (await import('../lib/data/cardSample')).default
+  const cardData = await cardSchema.validate(cardSample)
+  const data = JSON.parse(JSON.stringify(cardData))
+  //const data = JSON.parse(JSON.stringify(cardSchema.getDefault()))
   return {
     props: {
       userInfo: data,
     },
   }
 }
+
+
+function sortExplorationById(explorations: models.Exploration[]): models.Exploration[] {
+  const newExplr = Array.from(explorations)
+  return newExplr.sort((a, b) => ( a['id'] === b['id'] ? 0 : (a['id'] > b['id'] ? 1 : -1)))
+}
+
+
+function takeMultipleOf<T>(arr: Array<T>, value: number): Array<T> {
+  if (arr.length === 0 || value < 1) {
+    return []
+  }
+  const takeN = arr.length - arr.length % value
+  return arr.slice(0, takeN)
+}
+
 
 export default CardPage

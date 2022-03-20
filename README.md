@@ -2,9 +2,7 @@
 
 [![Cypress CI](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml/badge.svg)](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml)
 
-![Generated user profile card full 4k](docs/images/genshin-card-2880_1662-v2.png)
-
-![Generated user profile card](docs/images/genshin-card.svg)
+![Generated user profile card full hd](docs/images/genshin-card-2880_1662-v2.png)
 
 
 To support the following features, a few dependencies need to be installed:
