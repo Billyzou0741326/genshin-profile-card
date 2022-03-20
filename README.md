@@ -1,5 +1,7 @@
 # Genshin Profile Card
 
+[![Cypress CI](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml/badge.svg)](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml)
+
 ![Generated user profile card full 4k](docs/images/genshin-card-2880_1662-v1.png)
 
 ![Generated user profile card](docs/images/genshin-card.svg)
@@ -13,12 +15,18 @@ To support the following features, a few dependencies need to be installed:
 ```shell
 # puppeteer
 sudo apt-get install chromium-browser
-# chinese characters
+# chinese characters (only for svg rendering)
 sudo apt-get install fonts-wqy-zenhei
 ```
 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Node.js tech stack
+
+- [`Next.js`](https://nextjs.org) - server side rendering, pages & api
+- [`React.js`](https://reactjs.org) - frontend engine
+- [`Tailwind css`](https://tailwindcss.com) - css util library
+- [`Puppeteer`](https://github.com/puppeteer/puppeteer) - headless browser
+
 
 ## Getting Started
 
