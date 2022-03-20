@@ -21,7 +21,7 @@ export const teapotSchema = yup.object({
   items: yup.number().moreThan(-1).default(0),
   comfort_name: yup.string().default(''),
   comfort_icon: yup.string().default(''),
-  realms: yup.array(teapotRealmSchema),
+  realms: yup.array(teapotRealmSchema).default([]),
 })
 
 export interface Teapot extends yup.InferType<typeof teapotSchema> {}

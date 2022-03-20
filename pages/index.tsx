@@ -1,32 +1,22 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import React from 'react'
 import { toSvg } from 'html-to-image'
+import getRawBody from 'raw-body'
+import * as yup from 'yup'
 
-import Card, { CardPulse } from '../components/Card'
-import { UserProfile } from '../lib/models'
+import { cardSchema } from '../lib/validators/card'
 
-function getSampleUserProfile(): UserProfile {
-  return {
-    username: '洛水居士',
-    level: 58,
-    uid: 164635231,
-    daysActive: 450,
-    characterCount: 38,
-    achievements: 547,
-    spiralAbyss: '12-3',
-  }
-}
 
-const CardPage: NextPage = () => {
+const CardPage: NextPage = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Html element reference
   const cardRef = React.useRef(null)
   // Image base64 data
   const [ imageData, setImageData ] = React.useState('')
 
   // UserProfile 玩家信息
-  const userProfile = getSampleUserProfile()
+  const userInfo: yup.InferType<typeof cardSchema> = props.userInfo
+  //console.log(userInfo)
 
   // Html to svg
   const cardToSvg = React.useCallback(async () => {
@@ -43,6 +33,10 @@ const CardPage: NextPage = () => {
     backgroundBlendMode: 'lighten',
     zIndex: -50,
   }
+
+  //React.useEffect(() => {
+  //  cardToSvg()
+  //}, [])
 
   return (
     <div className="relative max-w-screen min-h-screen">
@@ -66,11 +60,32 @@ const CardPage: NextPage = () => {
               </div>
             </div>
             {/* Content */}
-            <div className="h-40 flex flex-row gap-4 items-center p-6 w-full rounded-xl shadow-md bg-blue-200 border border-blue-600 opacity-70">
+            <div className="h-40 flex flex-row gap-4 items-center p-4 w-full rounded-xl shadow-md bg-blue-50 border border-blue-400 opacity-80">
               {/* User avatar */}
-              <div className="rounded-full w-28 h-28 bg-white shadow-md"></div>
+              <div className="rounded-full w-28 h-28 inline-block bg-white shadow-md"></div>
               {/* User info */}
-              <span className="text-2xl">{ userProfile.username }</span>
+              <div className="mr-2 flex flex-col">
+                <span className="text-4xl font-thin text-blue-500 mb-2">{ userInfo.hoyolab.nickname }</span>
+                <span className="text-lg font-medium text-blue-400">{ `UID: ${userInfo.hoyolab.uid}` }</span>
+                <span className="text-lg font-medium text-blue-400">{ `Lv. ${userInfo.hoyolab.level}` }</span>
+              </div>
+              {/* Space */}
+              <div className="grow"></div>
+              {/* Stats card */}
+              <div className="text-center h-28 flex flex-row divide-x rounded-3xl shadow-md bg-gray-50">
+                <div className="basis-1/3 flex-none flex flex-col px-8 py-4 gap-2">
+                  <span className="text-md font-semibold tracking-widest text-blue-300 whitespace-nowrap">Days Active</span>
+                  <span className="text-5xl font-thin text-blue-500">{ userInfo.stats.days_active }</span>
+                </div>
+                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-8 py-4 gap-2">
+                  <span className="text-md font-semibold text-blue-300 whitespace-nowrap">Characters</span>
+                  <span className="text-5xl font-thin text-blue-500">{ userInfo.stats.characters }</span>
+                </div>
+                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-8 py-4 gap-2">
+                  <span className="text-md font-semibold text-blue-300 whitespace-nowrap">Spiral Abyss</span>
+                  <span className="text-5xl font-thin text-blue-500">{ userInfo.stats.spiral_abyss }</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -83,7 +98,7 @@ const CardPage: NextPage = () => {
               </div>
             </div>
             {/* Content */}
-            <div className="h-56 flex flex-row items-center p-2 w-full rounded-xl shadow-md bg-green-200 border border-green-600 opacity-70">
+            <div className="h-56 flex flex-row items-center p-2 w-full rounded-xl shadow-md bg-green-50 border border-green-400 opacity-80">
             </div>
           </div>
 
@@ -97,8 +112,8 @@ const CardPage: NextPage = () => {
             </div>
             {/* Content */}
             <div className="h-48 grid grid-cols-4 gap-4 rounded-xl opacity-70">
-              { Array(8).fill(0).map((i) => (
-                <div key={`${i}`} className="w-full h-full bg-orange-200 border border-orange-600 rounded-md shadow-lg">
+              { Array(8).fill(0).map((_, i) => (
+                <div key={`${i}`} className="w-full h-full bg-orange-50 border border-orange-400 rounded-md shadow-lg">
                 </div>
               )) }
             </div>
@@ -114,8 +129,8 @@ const CardPage: NextPage = () => {
             </div>
             {/* Content */}
             <div className="h-24 flex flex-row gap-4 items-center w-full opacity-70">
-              { Array(1).fill(0).map((i) => (
-                <div key={`${i}`} className="w-full h-full bg-pink-200 border border-pink-600 rounded-md shadow-lg">
+              { Array(1).fill(0).map((_, i) => (
+                <div key={`${i}`} className="w-full h-full bg-pink-50 border border-pink-400 rounded-md shadow-lg">
                 </div>
               )) }
             </div>
@@ -135,8 +150,8 @@ const CardPage: NextPage = () => {
                 <span className="text-3xl font-thin text-purple-400">Characters</span>
               </div>
             </div>
-            { Array(8).fill(0).map((i) => (
-              <div key={`${i}`} className="h-28 rounded-xl shadow-md bg-purple-200 border border-purple-600 opacity-70">
+            { Array(8).fill(0).map((_, i) => (
+              <div key={`${i}`} className="h-28 rounded-xl shadow-md bg-purple-50 border border-purple-400 opacity-70">
               </div>
             )) }
           </div>
@@ -144,6 +159,34 @@ const CardPage: NextPage = () => {
       </div>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const req = context.req
+  console.log(req.method)
+  if (req.method === 'POST') {
+    try {
+      if (/^application\/json/.test(req.headers['content-type'] || '')) {
+        const body = await getRawBody(req)
+        const str = body.toString()
+        const data = JSON.parse(str)
+        const userInfo = await cardSchema.validate(data)
+        return {
+          props: {
+            userInfo,
+          },
+        }
+      }
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+  const data = JSON.parse(JSON.stringify(cardSchema.getDefault()))
+  return {
+    props: {
+      userInfo: data,
+    },
+  }
 }
 
 export default CardPage
