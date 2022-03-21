@@ -331,8 +331,8 @@ const CardPage: NextPage = (
                 {userInfo.teapot.realms
                   .filter((realm) => realm.id > 0 && realm.id <= 3)
                   .map((realm, i) => (
-                    <div className="flex flex-col items-center justify-center w-full h-full">
-                      <div key={`${i}`} className="relative w-full h-full">
+                    <div key={`${i}`} className="flex flex-col items-center justify-center w-full h-full">
+                      <div className="relative w-full h-full">
                         {/* Realm background */}
                         <Image
                           src={`/serenitea/UI_HomeworldModule_${realm.id}_Pic.png`}
