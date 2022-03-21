@@ -1,5 +1,5 @@
 export type { UserProfile } from "./user-profile";
-export type { Character } from "./character";
+export type { Character, Artifact } from "./character";
 export type { GameStats } from "./game-stats";
 export type { Exploration } from "./exploration";
 export type { TeapotRealm, Teapot } from "./teapot";
