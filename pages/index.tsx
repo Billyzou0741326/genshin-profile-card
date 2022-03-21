@@ -342,7 +342,7 @@ const CardPage: NextPage = (
                         />
                         {/* Realm info */}
                       </div>
-                      <span className="text-xl tracking-widest font-thin text-pink-400 opacity-100">
+                      <span className="text-lg font-bold tracking-wider whitespace-nowrap text-pink-400 opacity-100">
                         {realm.name}
                       </span>
                     </div>
