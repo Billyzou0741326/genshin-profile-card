@@ -2,7 +2,10 @@
 
 [![Cypress CI](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml/badge.svg)](https://github.com/Billyzou0741326/genshin-profile-card/actions/workflows/cypress.yml)
 
-![Generated user profile card full hd](docs/images/genshin-card-2880_1662-v4.png)
+![Generated user profile card full hd](docs/images/genshin-card-2880_1662-v5.png)
+
+
+This is a genshin profile card generator.
 
 
 To support the following features, a few dependencies need to be installed:
@@ -24,6 +27,11 @@ Node.js tech stack
 - [`React.js`](https://reactjs.org) - frontend engine
 - [`Tailwind css`](https://tailwindcss.com) - css util library
 - [`Puppeteer`](https://github.com/puppeteer/puppeteer) - headless browser
+
+
+Special thanks to [`thesadry/genshin.py`](https://github.com/thesadru/genshin.py)
+for the awesome hoyolab API, and [luoshuijs](https://github.com/luoshuijs) for
+bringing up the project.
 
 
 ## Getting Started
