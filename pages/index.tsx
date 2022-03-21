@@ -124,7 +124,7 @@ const CardPage: NextPage = (
             </div>
             {/* Content */}
             <div
-              className={`h-56 grid grid-cols-5 text-center tracking-wider items-center
+              className={`h-52 grid grid-cols-5 text-center tracking-wider items-center
               p-2 w-full rounded-xl shadow-md bg-green-50 border border-green-400 opacity-80`}
             >
               {/* Common chests 普通宝箱 */}
@@ -261,22 +261,96 @@ const CardPage: NextPage = (
             </div>
             {/* Content */}
             <div
-              className={`h-24 flex flex-row gap-4 items-center w-full rounded-xl shadow-md opacity-70`}
+              className={`px-4 py-2 flex flex-col items-center gap-2 w-full bg-pink-50 border border-pink-400
+                rounded-xl shadow-md opacity-70`}
             >
-              {Array(1)
-                .fill(0)
-                .map((_, i) => (
-                  <div
-                    key={`${i}`}
-                    className="w-full h-full bg-pink-50 border border-pink-400 rounded-md shadow-lg"
-                  ></div>
-                ))}
+              {/* Stats */}
+              <div className="flex flex-row gap-2 tracking-widest text-pink-500">
+                {/* Heroicon - sparkles */}
+                <div className="flex flex-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    />
+                  </svg>
+                  <span className="text-md">{`Lv.${userInfo.teapot.level}`}</span>
+                </div>
+                {/* Heroicon - fire */}
+                <div className="flex flex-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+                    />
+                  </svg>
+                  <span className="text-md">{userInfo.teapot.comfort}</span>
+                </div>
+                {/* Heroicon - user-circle */}
+                <div className="flex flex-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="text-md">{userInfo.teapot.visitors}</span>
+                </div>
+              </div>
+              {/* Unlocked realms */}
+              <div className="h-28 w-full flex flex-row gap-4">
+                {userInfo.teapot.realms
+                  .filter((realm) => realm.id > 0 && realm.id <= 3)
+                  .map((realm, i) => (
+                    <div className="flex flex-col items-center justify-center w-full h-full">
+                      <div key={`${i}`} className="relative w-full h-full">
+                        {/* Realm background */}
+                        <Image
+                          src={`/serenitea/UI_HomeworldModule_${realm.id}_Pic.png`}
+                          alt={`serenitea realm ${i}`}
+                          layout="fill"
+                          className="w-full h-full opacity-50 rounded-xl"
+                        />
+                        {/* Realm info */}
+                      </div>
+                      <span className="text-xl tracking-widest font-thin text-pink-400 opacity-100">
+                        {realm.name}
+                      </span>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Divider */}
-        {/*<div className="border-r h-96 border-gray-400 mx-4"></div>*/}
 
         {/* Right */}
         <div className="flex flex-row w-full gap-6">
@@ -323,11 +397,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       console.log(error);
     }
   }
-  //import cardSample from '../lib/data/cardSample'
+  //import cardSample from '../lib/data/cardSample';
   const cardSample = (await import("../lib/data/cardSample")).default;
   const cardData = await cardSchema.validate(cardSample);
   const data = JSON.parse(JSON.stringify(cardData));
-  //const data = JSON.parse(JSON.stringify(cardSchema.getDefault()))
+  //const data = JSON.parse(JSON.stringify(cardSchema.getDefault()));
   return {
     props: {
       userInfo: data,

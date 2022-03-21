@@ -2,8 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['upload-os-bbs.mihoyo.com']
-  }
+    domains: [
+      'uploadstatic-sea.hoyoverse.com',
+      'upload-os-bbs.mihoyo.com',
+    ],
+  },
 }
 
 module.exports = nextConfig
