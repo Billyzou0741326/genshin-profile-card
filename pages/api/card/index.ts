@@ -74,7 +74,7 @@ export default async function handler(
       console.log(`Send post - (${new Date().getTime() - startTime})`);
     });
     await page.goto(`http://127.0.0.1:${port}/`, {
-      waitUntil: ["load", "domcontentloaded"],
+      waitUntil: ["load", "domcontentloaded", "networkidle0",],
     });
     console.log(`Page loaded - (${new Date().getTime() - startTime})`);
     const content = await page.screenshot({
