@@ -368,84 +368,36 @@ const CardPage: NextPage = (
                 </span>
               </div>
             </div>
-            {userInfo.characters.slice(0, 8).map((character, i) => (
-              <div
-                key={`${i}`}
-                className="h-28 rounded-xl shadow-md bg-purple-50 border border-purple-400/70"
-              >
-                {/* Content */}
-                <div className="flex flex-row items-center p-4 gap-4 h-full">
-                  {/* Character Avatar */}
+            <div className="grid grid-cols-8 gap-8">
+              {userInfo.characters.map((character, i) => (
+                <div
+                  key={`${i}`}
+                  className="relative rounded-xl shadow-md bg-purple-50/70 border border-purple-400 outline-none"
+                >
+                  {/* Avatar */}
                   <div
-                    className="relative w-20 h-20 rounded-full"
+                    className="relative aspect-w-9 aspect-h-10 w-full w-full rounded-xl"
                     style={{
                       backgroundImage: backgroundByRarity(character.rarity),
                     }}
                   >
                     <Image
                       src={character.icon}
-                      alt={character.name}
+                      alt="character icon"
                       layout="fill"
-                      className={`w-full h-full rounded-full`}
+                      className="w-full h-full object-cover rounded-xl"
                     />
-                    {/* Character level */}
-                    <div className="absolute inset-x-0 -bottom-4 text-center rounded-lg">
-                      <span className="text-purple-400">{`Lv. ${character.level}`}</span>
-                    </div>
                   </div>
-                  {/* Character Profile */}
-                  <div className="flex flex-col justify-center overflow-hidden gap-2 w-64 h-full text-purple-400">
-                    <span className="text-xl font-medium whitespace-nowrap">
-                      {character.name}
+                  <div className={`absolute inset-x-0 bottom-0 w-full flex flex-row rounded-b-xl
+                    ${character.rarity === 5 ? 'bg-orange-100/90' : 'bg-purple-100/90'}`}>
+                    <span className={`font-medium tracking-wider text-center text-sm w-full
+                      ${character.rarity === 5 ? 'text-orange-500' : 'text-purple-500'}`}>
+                      Lv. {character.level}
                     </span>
-                    <span>{`Friendship: ${character.friendship}`}</span>
-                  </div>
-                  {/* Divider */}
-                  <div className="border-r h-full"></div>
-                  {/* Character cons & artifacts */}
-                  <div className="grow flex flex-col items-center h-full">
-                    {/* cons */}
-                    <div className="flex flex-row justify-between w-full h-full">
-                      {character.constellations.map((constellation, i) => (
-                        <div
-                          key={constellation.name}
-                          className="relative h-10 w-10"
-                        >
-                          <Image
-                            src={constellation.icon}
-                            alt={constellation.name}
-                            layout="fill"
-                            className={`w-full h-full invert
-                              ${constellation.activated ? "" : "opacity-20"}`}
-                          />
-                          <img
-                            src={backgroundByConstellationActive(false)}
-                            alt={"cons lock"}
-                            className={`h-1/2 w-1/2 opacity-90 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                              ${constellation.activated ? "hidden" : ""}`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    {/* Artifacts */}
-                    <div className="flex flex-row justify-between w-full h-full">
-                      {fillInEmptyArtifacts(character.artifacts).map(
-                        (artifact, i) => (
-                          <div key={`${i}`} className="relative w-10 h-10">
-                            <Image
-                              src={artifact.icon}
-                              alt="artifact"
-                              layout="fill"
-                              className="w-full h-full"
-                            />
-                          </div>
-                        )
-                      )}
-                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
