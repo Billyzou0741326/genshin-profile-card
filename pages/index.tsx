@@ -368,7 +368,7 @@ const CardPage: NextPage = (
                 </span>
               </div>
             </div>
-            <div className="grid grid-cols-[repeat(auto-fill,_minmax(80px,_max-content))] gap-8">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(90px,_100px))] gap-4 lg:gap-8">
               {userInfo.characters.map((character, i) => (
                 <div
                   key={`${i}`}
