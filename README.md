@@ -15,7 +15,7 @@ To support the following features, a few dependencies need to be installed:
 
 ```shell
 # puppeteer
-sudo apt-get install chromium-browser
+sudo apt-get install chromium-browser xdg-utils
 # chinese characters (only for svg rendering)
 sudo apt-get install fonts-wqy-zenhei
 ```

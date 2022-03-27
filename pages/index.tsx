@@ -72,40 +72,40 @@ const CardPage: NextPage = (
             {/* Content */}
             <div className="h-40 flex flex-row gap-4 items-center p-4 w-full rounded-xl shadow-md bg-blue-50/70 border border-blue-400">
               {/* User avatar */}
-              <div className="rounded-full w-28 h-28 inline-block bg-white shadow-md"></div>
+              <div className="rounded-full flex-none w-28 h-28 inline-block bg-white shadow-md"></div>
               {/* User info */}
               <div className="mr-2 flex flex-col">
-                <span className="text-4xl font-thin text-blue-500 mb-2">
+                <span className="text-3xl lg:text-4xl font-thin text-blue-500 mb-2">
                   {userInfo.hoyolab.nickname}
                 </span>
-                <span className="text-lg font-medium text-blue-400">{`UID: ${userInfo.hoyolab.uid}`}</span>
-                <span className="text-lg font-medium text-blue-400">{`Lv. ${userInfo.hoyolab.level}`}</span>
+                <span className="text-sm lg:text-lg font-medium text-blue-400">{`UID: ${userInfo.hoyolab.uid}`}</span>
+                <span className="text-sm lg:text-lg font-medium text-blue-400">{`Lv. ${userInfo.hoyolab.level}`}</span>
               </div>
               {/* Space */}
               <div className="grow"></div>
               {/* Stats card */}
-              <div className="text-center h-28 flex flex-row divide-x rounded-3xl shadow-md bg-gray-50">
-                <div className="basis-1/3 flex-none flex flex-col px-8 py-4 gap-2">
-                  <span className="text-md font-semibold tracking-widest text-blue-300 whitespace-nowrap">
+              <div className="text-center h-28 flex flex-row items-center divide-x rounded-3xl shadow-md bg-gray-50">
+                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-4 lg:px-8 py-4 gap-2">
+                  <span className="text-sm lg:text-md font-semibold tracking-widest text-blue-300 whitespace-nowrap">
                     Days Active
                   </span>
-                  <span className="text-5xl font-thin text-blue-500">
+                  <span className="text-2xl lg:text-5xl font-thin text-blue-500">
                     {userInfo.stats.days_active}
                   </span>
                 </div>
-                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-8 py-4 gap-2">
-                  <span className="text-md font-semibold text-blue-300 whitespace-nowrap">
+                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-4 lg:px-8 py-4 gap-2">
+                  <span className="text-sm lg:text-md font-semibold tracking-widest text-blue-300 whitespace-nowrap">
                     Characters
                   </span>
-                  <span className="text-5xl font-thin text-blue-500">
+                  <span className="text-2xl lg:text-5xl font-thin text-blue-500">
                     {userInfo.stats.characters}
                   </span>
                 </div>
-                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-8 py-4 gap-2">
-                  <span className="text-md font-semibold text-blue-300 whitespace-nowrap">
+                <div className="basis-1/3 flex-none flex tracking-widest flex-col px-4 lg:px-8 py-4 gap-2">
+                  <span className="text-sm lg:text-md font-semibold tracking-widest text-blue-300 whitespace-nowrap">
                     Spiral Abyss
                   </span>
-                  <span className="text-5xl font-thin text-blue-500">
+                  <span className="text-2xl lg:text-5xl font-thin text-blue-500">
                     {userInfo.stats.spiral_abyss}
                   </span>
                 </div>
@@ -368,7 +368,7 @@ const CardPage: NextPage = (
                 </span>
               </div>
             </div>
-            <div className="grid grid-cols-8 gap-8">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(80px,_max-content))] gap-8">
               {userInfo.characters.map((character, i) => (
                 <div
                   key={`${i}`}
